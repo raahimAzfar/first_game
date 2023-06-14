@@ -3,12 +3,17 @@ package FirstGame;
 import java.awt.Color;
 import java.awt.Container;
 
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JFrame;
 
 public class Game {
     // Defines the window
     JFrame window;
     Container con;
+    JPanel titlePanel;
+    JLabel titleLabel;
+
     public static void main(String[] args) {
         // Initializes the game
         new Game();
@@ -30,6 +35,11 @@ public class Game {
         window.setVisible(true);
         // 
         con = window.getContentPane();
+
+        panel = new JPanel();
+        panel.setBounds(100, 100, 600, 150);
+        panel.setBackground(Color.blue);
+        con.add(titlePanel);
     }
 
 }
