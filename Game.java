@@ -28,6 +28,8 @@ public class Game {
         window.setLayout(null);
         // Makes the window visible
         window.setVisible(true);
+        // 
+        con = window.getContentPane();
     }
 
 }
