@@ -17,8 +17,8 @@ public class Game {
     JPanel titleNamePanel, startButtonPanel;
     JLabel titleNameLabel;
     JButton startButton;
-    Font titleFont = new Font("Times New Roman", Font.PLAIN, 90);
-	Font normalFont = new Font("Times New Roman", Font.PLAIN, 28);
+    Font titleFont = new Font("Monospaced", Font.PLAIN, 90);
+	Font normalFont = new Font("Monospaced", Font.PLAIN, 28);
 
     public static void main(String[] args) {
         // Initializes the game
@@ -57,8 +57,8 @@ public class Game {
 
         // Creates the start button.
         startButton = new JButton("START");
-		startButton.setBackground(Color.black);
-		startButton.setForeground(Color.white);
+		startButton.setBackground(Color.white);
+		startButton.setForeground(Color.black);
 		startButton.setFont(normalFont);
 		startButton.setFocusPainted(false);
 
