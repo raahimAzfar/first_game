@@ -7,25 +7,38 @@ import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
 
+import entity.Player;
+
 public class GamePanel extends JPanel implements Runnable {
-    
-    // SCREEN SETTINGS
-    final int originalTileSize = 16; // 16 x 16 tile
+
+    final int originalTileSize = 16; 
     final int scale = 3; 
 
-    final int tileSize = originalTileSize * scale; // 48 x 48 tile
+    public final int tileSize = originalTileSize * scale; 
     final int maxScreenCol = 16;
     final int maxScreenRow = 12;
-    final int screenHeight = tileSize * maxScreenCol; // 768px
-    final int screenWidth = tileSize * maxScreenRow; // 576px
+    final int screenHeight = tileSize * maxScreenCol; 
+    final int screenWidth = tileSize * maxScreenRow; 
 
+    int FPS = 115;
+
+    KeyHandler keyH = new KeyHandler();
     Thread gameThread;
+    Player player = new Player(this, keyH);
+
+    int x = 100;
+    int y = 100;
+    int speed = 4;
+
 
     public GamePanel() {
         
         this.setPreferredSize(new Dimension(screenHeight, screenWidth));
         this.setBackground(Color.black);
         this.setDoubleBuffered(true);
+
+        this.addKeyListener(keyH);
+        this.setFocusable(true);
     }
 
     public void startGameThread() { 
@@ -37,19 +50,31 @@ public class GamePanel extends JPanel implements Runnable {
     @Override
     public void run() {
         
+        long lastTime = System.nanoTime();
+            double drawInterval = 1000000000 / FPS;
+            double delta = 0;
+		    long currentTime;
+
         while(gameThread != null) {
+            
+            currentTime = System.nanoTime();
 
-            // 1 UPDATE: update information such as characters, graphics, ect.
+            delta += (currentTime - lastTime) / drawInterval;
+            
+            lastTime = currentTime;
+
+            if(delta >= 1) {
             update();
-
-            // 2 DRAW: draw the screen with the updated information.
             repaint();
+            delta--;
+            }
         }
 
     }
 
     public void update() {
-
+       
+        player.update();
     }
 
     public void paintComponent(Graphics g) {
@@ -58,9 +83,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         Graphics2D g2 = (Graphics2D)g;
 
-        g2.setColor(Color.yellow);
-
-        g2.fillRect(100, 100, tileSize, tileSize);
+        player.draw(g2);
 
         g2.dispose();
     }
